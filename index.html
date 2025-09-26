@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Cake</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to top, #87ceeb, #ffffff);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+  }
+
+  h1 {
+    color: purple;
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 20px;
+    animation: bounce 1s infinite alternate;
+    z-index: 10;
+  }
+
+  @keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10px); }
+  }
+
+  /* Cake */
+  .cake {
+    position: relative;
+    width: 200px;
+    height: 150px;
+    z-index: 10;
+  }
+
+  .layer {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 10px;
+  }
+
+  .layer1 {
+    bottom: 0;
+    width: 200px;
+    height: 60px;
+    background: pink;
+  }
+
+  .layer2 {
+    bottom: 60px;
+    width: 160px;
+    height: 50px;
+    background: lightyellow;
+  }
+
+  .layer3 {
+    bottom: 110px;
+    width: 120px;
+    height: 40px;
+    background: lightpink;
+  }
+
+  /* Candles */
+  .candle {
+    position: absolute;
+    bottom: 150px;
+    width: 10px;
+    height: 40px;
+    background: white;
+    border-radius: 3px;
+  }
+
+  .candle:nth-child(4) { left: 50px; }
+  .candle:nth-child(5) { left: 85px; }
+  .candle:nth-child(6) { left: 120px; }
+  .candle:nth-child(7) { left: 155px; }
+
+  /* Flames */
+  .flame {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 20px;
+    background: radial-gradient(circle, yellow 60%, orange 90%, transparent 100%);
+    border-radius: 50% 50% 50% 50%;
+    animation: flicker 0.3s infinite;
+  }
+
+  @keyframes flicker {
+    0% { transform: translateX(-50%) scale(1); opacity: 1; }
+    50% { transform: translateX(-50%) scale(1.2); opacity: 0.7; }
+    100% { transform: translateX(-50%) scale(0.9); opacity: 1; }
+  }
+
+  /* Confetti */
+  .confetti {
+    position: fixed;
+    top: -10px;
+    width: 8px;
+    height: 14px;
+    background: red;
+    opacity: 0.9;
+    animation: fall linear forwards;
+    z-index: 1;
+  }
+
+  @keyframes fall {
+    to {
+      transform: translateY(110vh) rotate(360deg);
+    }
+  }
+</style>
+</head>
+<body>
+  <h1>🎉 Happy Birthday! 🎉</h1>
+  <div class="cake">
+    <div class="layer layer1"></div>
+    <div class="layer layer2"></div>
+    <div class="layer layer3"></div>
+
+    <!-- Candles -->
+    <div class="candle"><div class="flame"></div></div>
+    <div class="candle"><div class="flame"></div></div>
+    <div class="candle"><div class="flame"></div></div>
+    <div class="candle"><div class="flame"></div></div>
+  </div>
+
+<script>
+  // Generate falling confetti
+  function createConfetti() {
+    const confetti = document.createElement("div");
+    confetti.classList.add("confetti");
+
+    // Random position
+    confetti.style.left = Math.random() * window.innerWidth + "px";
+
+    // Random color
+    const colors = ["red", "blue", "yellow", "green", "purple", "orange", "pink"];
+    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+    // Random size
+    confetti.style.width = Math.random() * 8 + 5 + "px";
+    confetti.style.height = Math.random() * 12 + 8 + "px";
+
+    // Random animation duration
+    const duration = Math.random() * 3 + 2;
+    confetti.style.animationDuration = duration + "s";
+
+    document.body.appendChild(confetti);
+
+    // Remove after falling
+    setTimeout(() => {
+      confetti.remove();
+    }, duration * 1000);
+  }
+
+  // Keep creating confetti
+  setInterval(createConfetti, 150);
+</script>
+</body>
+</html>
